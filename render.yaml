@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: atelier-ad-studio
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: KIE_API_KEY
+        sync: false        # paste your kie.ai API key in the Render dashboard
+      - key: ANTHROPIC_API_KEY
+        sync: false        # paste your Anthropic API key in the Render dashboard
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
