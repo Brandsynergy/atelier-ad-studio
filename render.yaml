@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: atelier-ad-studio
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      # ── Existing keys ──────────────────────────────────────
+      - key: KIE_API_KEY
+        sync: false        # kie.ai API key
+      - key: ANTHROPIC_API_KEY
+        sync: false        # Anthropic API key (copy generation)
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+
+      # ── Clerk authentication ────────────────────────────
+      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        sync: false        # from clerk.com dashboard → API Keys
+      - key: CLERK_SECRET_KEY
+        sync: false        # from clerk.com dashboard → API Keys
+      - key: NEXT_PUBLIC_CLERK_SIGN_IN_URL
+        value: /sign-in
+      - key: NEXT_PUBLIC_CLERK_SIGN_UP_URL
+        value: /sign-up
+      - key: NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL
+        value: /
+      - key: NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL
+        value: /
+
+      # ── Stripe (payments + webhooks) ────────────────────
+      - key: STRIPE_SECRET_KEY
+        sync: false        # from Stripe dashboard → Developers → API keys
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false        # from Stripe dashboard → Developers → Webhooks → signing secret
+      - key: STRIPE_STARTER_PRICE_ID
+        sync: false        # price_xxx for the $29 Starter plan
+      - key: STRIPE_STUDIO_PRICE_ID
+        sync: false        # price_xxx for the $99 Studio plan
+      - key: STRIPE_AGENCY_PRICE_ID
+        sync: false        # price_xxx for the $299 Agency plan
